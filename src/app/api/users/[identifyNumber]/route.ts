@@ -3,13 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (
   request: NextRequest,
-  {
-    params,
-  }: {
-    params: { identifyNumber: string };
-  }
+  { params }: { params: Promise<{ identifyNumber: string }> }
 ) => {
-  console.log(params);
+  const { identifyNumber } = await params;
 
   try {
     const user = await prisma.user.findFirst({
@@ -19,7 +15,7 @@ export const GET = async (
         identifyType: true,
         personType: true,
       },
-      where: { identifyNumber: params.identifyNumber },
+      where: { identifyNumber: identifyNumber },
     });
     if (!user) {
       return NextResponse.json(
