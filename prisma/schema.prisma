@@ -1,0 +1,73 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique 
+  phone         String?  @db.VarChar(10)
+  company       String?
+  address String
+  identifyNumber String @unique
+  isActive      Boolean  @default(true)
+  businessType  BusinessType @relation(fields: [businessTypeId], references: [id], onDelete: NoAction)
+  city          City   @relation(fields: [cityId], references: [id], onDelete: NoAction)
+  createdAt     DateTime @default(now())
+  identifyType IdentifyType @relation(fields: [identifyTypeId], references: [id], onDelete:NoAction )
+  personType PersonType @relation(fields: [personTypeId], references: [id], onDelete:NoAction )
+  identifyTypeId Int
+  personTypeId Int
+  cityId        Int
+  businessTypeId Int
+  position       String   
+  department     String  
+  verificationDigit String @db.VarChar(1)
+}
+model IdentifyType{
+  id Int @id @default(autoincrement())
+  name String
+  user User[]
+}
+model PersonType{
+  id Int @id @default(autoincrement())
+  name String
+  user User[]
+}
+model Country {
+  id          Int    @id @default(autoincrement())
+  name        String @unique
+  phoneCode   Int 
+  states      State[]
+}
+
+model State {
+  id         Int    @id @default(autoincrement())
+  name       String
+  country    Country @relation(fields: [countryId], references: [id])
+  cities     City[]
+
+  countryId  Int
+}
+
+model City {
+  id        Int   @id @default(autoincrement())
+  name      String
+  state     State @relation(fields: [stateId], references: [id])
+
+  stateId   Int
+
+  users     User[]
+}
+
+model BusinessType {
+  id      Int    @id @default(autoincrement())
+  name    String @unique
+  users   User[]
+}
