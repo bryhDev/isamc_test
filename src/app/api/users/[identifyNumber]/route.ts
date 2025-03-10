@@ -1,11 +1,14 @@
 import { prisma } from "@/libs/prismaInstance";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async ({
-  params,
-}: {
-  params: { identifyNumber: string };
-}) => {
+export const GET = async (
+  request: NextRequest,
+  {
+    params,
+  }: {
+    params: { identifyNumber: string };
+  }
+) => {
   console.log(params);
 
   try {

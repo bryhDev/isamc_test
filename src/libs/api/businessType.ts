@@ -1,6 +1,7 @@
 export async function fetchBusinessType() {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   try {
-    const response = await fetch("http://localhost:3000/api/businessType");
+    const response = await fetch(`${API_URL}/api/businessType`);
     if (!response.ok) {
       throw new Error(`Error al obtener los países: ${response.statusText}`);
     }
