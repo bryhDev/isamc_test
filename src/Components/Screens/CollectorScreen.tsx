@@ -29,7 +29,9 @@ function CollectorScreen({
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    fetchUser(filters).then((value: User) => setUser(value));
+    if (filters.identifyNumber) {
+      fetchUser(filters).then((value: User) => setUser(value));
+    }
     return () => {};
   }, [filters]);
 

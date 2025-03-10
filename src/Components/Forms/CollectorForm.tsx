@@ -48,9 +48,7 @@ export default function CollectorForm({
   });
   const formRef = useRef<HTMLFormElement | null>(null);
   const [loading, setLoading] = useState(false);
-  const [userState, setUserState] = useState<User | null>(
-    user ? { ...user } : null
-  );
+  const [userState, setUserState] = useState<User | null>(user);
   console.log(loading);
 
   const locationsIdsFromCity = useCallback(
@@ -146,7 +144,7 @@ export default function CollectorForm({
           <select
             {...register("identifyTypeId", { valueAsNumber: true })}
             className="w-full border rounded py-2 px-3 mb-2"
-            disabled={!!userState}
+            disabled={userState ? true : false}
           >
             <option value="">Seleccione un tipo de identificación</option>
             {identifyType.map((idType) => (
@@ -166,7 +164,7 @@ export default function CollectorForm({
             {...register("identifyNumber")}
             placeholder="Número de Identificación *"
             className="w-full border rounded py-2 px-3 mb-2"
-            disabled={!!userState}
+            disabled={userState ? true : false}
           />
           {errors.identifyNumber && (
             <p className="text-red-500 text-sm">
@@ -179,7 +177,7 @@ export default function CollectorForm({
           <select
             {...register("personTypeId", { valueAsNumber: true })}
             className="w-full border rounded py-2 px-3 mb-2"
-            disabled={!!userState}
+            disabled={userState ? true : false}
           >
             <option value="">Seleccione un tipo de persona</option>
             {personType.map((perType) => (
@@ -315,7 +313,7 @@ export default function CollectorForm({
             type="email"
             placeholder="Correo Electrónico *"
             className="w-full border rounded py-2 px-3 mb-2"
-            disabled={!!userState}
+            disabled={userState ? true : false}
           />
           {errors.email && (
             <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -329,7 +327,7 @@ export default function CollectorForm({
             type="email"
             placeholder="Confirmar correo electrónico *"
             className="w-full border rounded py-2 px-3 mb-2"
-            disabled={!!userState}
+            disabled={userState ? true : false}
           />
           {errors.confirmEmail && (
             <p className="text-red-500 text-sm">
@@ -345,7 +343,7 @@ export default function CollectorForm({
             type="tel"
             placeholder="Número de Celular *"
             className="w-full border rounded py-2 px-3 mb-2"
-            disabled={!!userState}
+            disabled={userState ? true : false}
           />
           {errors.phone && (
             <p className="text-red-500 text-sm">{errors.phone.message}</p>
@@ -359,7 +357,7 @@ export default function CollectorForm({
             type="tel"
             placeholder="Confirmar número de celular *"
             className="w-full border rounded py-2 px-3 mb-2"
-            disabled={!!userState}
+            disabled={userState ? true : false}
           />
           {errors.confirmPhone && (
             <p className="text-red-500 text-sm">

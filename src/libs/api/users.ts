@@ -43,6 +43,8 @@ export const updateUser = async (userData: CollectorFormData) => {
   }
 };
 export const fetchUsers = async (filters?: UserFilter) => {
+  console.log("entre a users");
+
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   let queryParams = "";
   if (
