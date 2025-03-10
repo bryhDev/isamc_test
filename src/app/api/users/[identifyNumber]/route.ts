@@ -34,13 +34,13 @@ export const GET = async (
 };
 export const PUT = async (
   request: NextRequest,
-  { params }: { params: { identifyNumber: string } }
+  { params }: { params: Promise<{ identifyNumber: string }> }
 ) => {
   try {
     const body = await request.json();
-    const userIdentifyNumber = params.identifyNumber;
+    const { identifyNumber } = await params;
 
-    if (!userIdentifyNumber) {
+    if (!identifyNumber) {
       return NextResponse.json(
         { message: "El ID del usuario es obligatorio" },
         { status: 400 }
@@ -48,7 +48,7 @@ export const PUT = async (
     }
 
     const existingUser = await prisma.user.findUnique({
-      where: { identifyNumber: userIdentifyNumber },
+      where: { identifyNumber: identifyNumber },
     });
 
     if (!existingUser) {
@@ -60,7 +60,7 @@ export const PUT = async (
 
     // Actualizar el usuario en la base de datos
     const updatedUser = await prisma.user.update({
-      where: { identifyNumber: userIdentifyNumber },
+      where: { identifyNumber: identifyNumber },
       data: {
         name: body.filledBy,
         email: body.email,
