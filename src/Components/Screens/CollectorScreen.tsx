@@ -16,10 +16,10 @@ interface Props {
   identifyType: IdentifyType[];
 }
 function CollectorScreen({
-  countries,
-  businessType,
-  identifyType,
-  personType,
+  countries = [],
+  businessType = [],
+  identifyType = [],
+  personType = [],
 }: Props) {
   const [filters, setFilters] = useState<UserFilter>({
     personTypeId: "",

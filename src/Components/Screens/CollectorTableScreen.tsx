@@ -11,7 +11,11 @@ interface Props {
   personType: PersonType[];
   identifyType: IdentifyType[];
 }
-function CollectorTableScreen({ users, identifyType, personType }: Props) {
+function CollectorTableScreen({
+  users = [],
+  identifyType = [],
+  personType = [],
+}: Props) {
   const [filters, setFilters] = useState<UserFilter>({
     personTypeId: "",
     identifyTypeId: "",
